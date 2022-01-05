@@ -1,5 +1,7 @@
 # waf
 
+ModSecurity Nginx основанный на докер образе [owasp/modsecurity-crs:nginx-alpine](https://hub.docker.com/r/owasp/modsecurity-crs/)
+
 ## Как запустить:
 
 ```bash
