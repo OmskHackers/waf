@@ -5,10 +5,9 @@ ModSecurity Nginx для Attack/Defense CTF
 ## На системе :
 
 ```
-git clone https://github.com/OmskHackers/waf.git
 cd waf
-chmod +x setup-waf.sh
-./setup-waf.sh
+chmod +x *.sh
+./{os}-setup-waf.sh
 ```
 
 ## На докере:
