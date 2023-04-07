@@ -150,10 +150,10 @@ mkdir /etc/nginx/modsec
 wget -P /etc/nginx/modsec/ https://raw.githubusercontent.com/SpiderLabs/ModSecurity/49495f1925a14f74f93cb0ef01172e5abc3e4c55/unicode.mapping
 
 mkdir /etc/nginx/modsec/example
-wget -P /etc/nginx/modsec/example https://omsk-hackers.org/nginx-modsec/modsec/example/modsecurity.conf
-wget -P /etc/nginx/modsec/example https://omsk-hackers.org/nginx-modsec/modsec/example/main.conf
-wget -P /etc/nginx/modsec/example https://omsk-hackers.org/nginx-modsec/modsec/example/rules.conf
-wget -P /etc/nginx/modsec/example https://omsk-hackers.org/nginx-modsec/modsec/example/allowed-user-agents.data
+wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/modsecurity.conf
+wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/main.conf
+wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/rules.conf
+wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/allowed-user-agents.data
 
 curl https://omsk-hackers.org/nginx-modsec/nginx.conf > /etc/nginx/nginx.conf
 curl https://omsk-hackers.org/nginx-modsec/sites-enabled/default > /etc/nginx/sites-enabled/default

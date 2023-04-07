@@ -1,0 +1,12 @@
+server {
+	listen 8003 default_server;
+
+	modsecurity on;
+	modsecurity_rules_file /etc/nginx/modsec/example/main.conf;
+
+	server_name _;
+
+	location / {
+          proxy_pass http://10.0.2.15:9090;
+	}
+}
