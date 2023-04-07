@@ -77,10 +77,8 @@ function printInfo() {
     echo ""
     if [[ ${OS} == "ubuntu" ]]; then
         echo "OS - "$OS$RELEASE_YEAR
-	elif [[ ${OS} == "debian"  ]]; then
-		echo "OS - "$OS" "$VERSION_ID
     else
-        echo "Use manual install !"
+        echo "Use manual install or another installer !"
         exit 1
     fi
 }
