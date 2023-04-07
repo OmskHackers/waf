@@ -80,7 +80,7 @@ function printInfo() {
 	elif [[ ${OS} == "debian"  ]]; then
 		echo "OS - "$OS" "$VERSION_ID
     else
-        echo "Looks like you aren't running this installer on a Debian, Ubuntu system"
+        echo "Use manual install !"
         exit 1
     fi
 }
