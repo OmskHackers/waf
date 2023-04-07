@@ -152,9 +152,9 @@ else
     exit 1
 fi
 
-echo $configure_args_without_compat
+exe() { echo "\$ ${@/eval/}" ; "$@" ; }
+exe eval "./configure --add-dynamic-module=../ModSecurity-nginx ${configure_args_without_compat}"
 
-./configure --add-dynamic-module=../ModSecurity-nginx ${configure_args_without_compat}
 make -j modules
 
 #Adding ModSecurity Module
