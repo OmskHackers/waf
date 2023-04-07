@@ -155,8 +155,8 @@ wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/
 wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/rules.conf
 wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/allowed-user-agents.data
 
-curl https://omsk-hackers.org/nginx-modsec/nginx.conf > /etc/nginx/nginx.conf
-curl https://omsk-hackers.org/nginx-modsec/sites-enabled/default > /etc/nginx/sites-enabled/default
+curl https://raw.githubusercontent.com/OmskHackers/waf/master/nginx.conf > /etc/nginx/nginx.conf
+curl https://raw.githubusercontent.com/OmskHackers/waf/master/default > /etc/nginx/sites-enabled/default
 
 nginx -t
 
