@@ -1,14 +1,20 @@
 # waf
 
-ModSecurity Nginx основанный на докер образе [owasp/modsecurity-crs:nginx-alpine](https://hub.docker.com/r/owasp/modsecurity-crs/)
+ModSecurity Nginx для Attack/Defense CTF
 
-## Как запустить:
+## На системе :
+
+```
+git clone https://github.com/OmskHackers/waf.git
+cd waf
+chmod +x setup-waf.sh
+./setup-waf.sh
+```
+
+## На докере:
 
 ```bash
+cd docker
 bash modsec_up.sh [port] [address] [absolute path to config folder]
 ```
 
-### Как добавлять правило:
-
- - Добавьте правило в директорию, которую передаете в скрипт
- - Перезагрузите сервер
