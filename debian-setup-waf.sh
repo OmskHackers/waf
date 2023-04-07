@@ -140,7 +140,7 @@ configure_args="$(nginx -V 2>&1)"
 if [[ $configure_args =~ "configure arguments: "(.*)"--with-compat "(.*) ]]; then
     configure_args_without_compat=${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}
 elif [[ $configure_args =~ "configure arguments: "(.*) ]]; then
-    configure_args_without_compat=${BASH_REMATCH[1]}"
+    configure_args_without_compat=${BASH_REMATCH[1]}
 else
     echo "failed parse configure arguments!"
     exit 1
