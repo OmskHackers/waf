@@ -111,7 +111,7 @@ service nginx restart
 
 #Required Dependencies Installation
 echo -e "${c}Installing Prerequisites"; $r
-apt-get install -y apt-utils autoconf automake build-essential git libcurl4-openssl-dev libgeoip-dev liblmdb-dev libpcre++-dev libtool libxml2-dev libyajl-dev pkgconf wget zlib1g-dev libmodsecurity3 libmodsecurity-dev
+apt-get install -y apt-utils autoconf automake build-essential git libcurl4-openssl-dev libgeoip-dev liblmdb-dev libpcre++-dev libtool libxml2-dev libyajl-dev pkgconf wget zlib1g-dev libmodsecurity3 libmodsecurity-dev  libssl-dev
 
 
 #ModSecurity Installation
