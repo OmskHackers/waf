@@ -156,7 +156,7 @@ wget -P /etc/nginx/modsec/example https://omsk-hackers.org/nginx-modsec/modsec/e
 wget -P /etc/nginx/modsec/example https://omsk-hackers.org/nginx-modsec/modsec/example/allowed-user-agents.data
 
 curl https://omsk-hackers.org/nginx-modsec/nginx.conf > /etc/nginx/nginx.conf
-curl curl https://omsk-hackers.org/nginx-modsec/sites-enabled/default > /etc/nginx/sites-enabled/default
+curl https://omsk-hackers.org/nginx-modsec/sites-enabled/default > /etc/nginx/sites-enabled/default
 
 nginx -t
 
