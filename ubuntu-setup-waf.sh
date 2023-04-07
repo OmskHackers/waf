@@ -78,6 +78,7 @@ function printInfo() {
     if [[ ${OS} == "ubuntu" ]]; then
         echo "OS - "$OS$RELEASE_YEAR
     else
+        echo "OS - "$OS$RELEASE_YEAR
         echo "Use manual install or another installer !"
         exit 1
     fi
