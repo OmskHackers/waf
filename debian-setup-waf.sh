@@ -139,4 +139,6 @@ curl https://raw.githubusercontent.com/OmskHackers/waf/master/default > /etc/ngi
 nginx -t
 
 echo ""
-echo "cmd : service nginx restart"
+echo "Add to systemd : "
+echo "https://serverfault.com/questions/851344/manage-self-compiled-nginx-via-systemd"
+
