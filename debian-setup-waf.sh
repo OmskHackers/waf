@@ -102,6 +102,7 @@ apt-get -y install libyajl-dev libpcre++-dev libcurl4-openssl-dev libmaxminddb-d
 echo -e "${c}Installing and setting up ModSecurity"; $r
 cd
 git clone --depth 1 -b v3/master --single-branch https://github.com/SpiderLabs/ModSecurity
+git clone https://github.com/SpiderLabs/ModSecurity-nginx.git
 cd ModSecurity
 git submodule init
 git submodule update
@@ -110,7 +111,7 @@ git submodule update
 make -j3
 make install
 cd ..
-rm -rf ModSecurity
+#rm -rf ModSecurity
     
 #ModSecurity NGINX Conector Module Installation
 wget https://nginx.org/download/nginx-1.22.1.tar.gz
@@ -125,13 +126,13 @@ mkdir /etc/nginx/modsec
 wget -P /etc/nginx/modsec/ https://raw.githubusercontent.com/SpiderLabs/ModSecurity/49495f1925a14f74f93cb0ef01172e5abc3e4c55/unicode.mapping
 
 mkdir /etc/nginx/modsec/example
-wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/modsecurity.conf
+wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/debian-modsecurity.conf
 wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/main.conf
 wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/rules.conf
 wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/allowed-user-agents.data
 
 mkdir /etc/nginx/sites-enabled
-curl https://raw.githubusercontent.com/OmskHackers/waf/master/nginx.conf > /etc/nginx/nginx.conf
+curl https://raw.githubusercontent.com/OmskHackers/waf/master/debian-nginx.conf > /etc/nginx/nginx.conf
 curl https://raw.githubusercontent.com/OmskHackers/waf/master/default > /etc/nginx/sites-enabled/default
 
 nginx -t
