@@ -127,6 +127,7 @@ wget -P /etc/nginx/modsec/ https://raw.githubusercontent.com/SpiderLabs/ModSecur
 
 mkdir /etc/nginx/modsec/example
 wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/debian-modsecurity.conf
+mv /etc/nginx/modsec/example/debian-modsecurity.conf /etc/nginx/modsec/example/modsecurity.conf
 wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/main.conf
 wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/rules.conf
 wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/allowed-user-agents.data
