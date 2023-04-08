@@ -89,29 +89,13 @@ printInfo
 
 
 
-#Latest stable NGINX (important)
-apt install curl gnupg2 ca-certificates lsb-release debian-archive-keyring
-curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor |  tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
-gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
-http://nginx.org/packages/debian `lsb_release -cs` nginx" \
-    | tee /etc/apt/sources.list.d/nginx.list
-echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
-    | tee /etc/apt/preferences.d/99nginx
-
-apt-get update -y
-apt-get install -y nginx
-apt-get upgrade -y
-
-
-
-echo -e "${c}Checking NGINX version"; $r
-(set -x; nginx -v )
-service nginx restart
 
 #Required Dependencies Installation
 echo -e "${c}Installing Prerequisites"; $r
+apt-get install build-essential libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl-dev libgd-dev libxml2 libxml2-dev uuid-dev -y
 apt-get install -y apt-utils autoconf automake build-essential git libcurl4-openssl-dev libgeoip-dev liblmdb-dev libpcre++-dev libtool libxml2-dev libyajl-dev pkgconf wget zlib1g-dev libmodsecurity3 libmodsecurity-dev  libssl-dev
+apt-get -y install automake && apt-get -y install libtool
+apt-get -y install libyajl-dev libpcre++-dev libcurl4-openssl-dev libmaxminddb-dev libfuzzy-dev geoip-bin liblua5.3-dev libpcre2-dev liblmdb-dev libxml2 libxml2-dev -y
 
 
 #ModSecurity Installation
@@ -129,40 +113,12 @@ cd ..
 rm -rf ModSecurity
     
 #ModSecurity NGINX Conector Module Installation
-echo -e "${c}Downloading nginx connector for ModSecurity Module"; $r
-cd
-git clone --depth 1 https://github.com/SpiderLabs/ModSecurity-nginx.git
-    
-#Filter nginx version number only
-nginxvnumber=$(nginx -v 2>&1 | grep -o '[0-9.]*')
-echo -e "${c} Current version of nginx is: " $nginxvnumber; $r
-wget http://nginx.org/download/nginx-"$nginxvnumber".tar.gz
-tar zxvf nginx-"$nginxvnumber".tar.gz
-rm -rf nginx-"$nginxvnumber".tar.gz
-cd nginx-"$nginxvnumber"
+wget https://nginx.org/download/nginx-1.22.1.tar.gz
+tar -xzvf nginx-1.22.1.tar.gz
+cd nginx-1.22.1/
+./configure --prefix=/var/www/html --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --http-log-path=/var/log/nginx/access.log --error-log-path=/var/log/nginx/error.log --with-pcre --lock-path=/var/lock/nginx.lock --pid-path=/run/nginx.pid --modules-path=/etc/nginx/modules --with-http_ssl_module --with-http_v2_module --with-stream=dynamic --with-http_addition_module --with-http_sub_module --with-compat --with-debug --without-http_autoindex_module --without-http_ssi_module --without-mail_smtp_module --without-mail_imap_module --without-mail_pop3_module --without-http_scgi_module --without-http_fastcgi_module --without-http_uwsgi_module --without-http_memcached_module --without-http_map_module --without-http_empty_gif_module --without-http_grpc_module --without-http_mirror_module --add-module=../ModSecurity-nginx
 
-configure_args="$(nginx -V 2>&1)"
-
-if [[ $configure_args =~ "configure arguments: "(.*)"--with-compat "(.*) ]]; then
-    configure_args_without_compat=${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}
-elif [[ $configure_args =~ "configure arguments: "(.*) ]]; then
-    configure_args_without_compat=${BASH_REMATCH[1]}
-else
-    echo "failed parse configure arguments!"
-    exit 1
-fi
-
-exe() { echo "\$ ${@/eval/}" ; "$@" ; }
-exe eval "./configure --add-dynamic-module=../ModSecurity-nginx ${configure_args_without_compat}"
-
-make -j modules
-
-#Adding ModSecurity Module
-mkdir /etc/nginx/additional_modules
-cp objs/ngx_http_modsecurity_module.so /etc/nginx/additional_modules
-sed -i -e '5iload_module /etc/nginx/additional_modules/ngx_http_modsecurity_module.so;\' /etc/nginx/nginx.conf
-(set -x; nginx -t)
-service nginx restart
+make -j3 && sudo make install
 
 #Enabling ModSecurity
 mkdir /etc/nginx/modsec
@@ -174,6 +130,7 @@ wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/
 wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/rules.conf
 wget -P /etc/nginx/modsec/example https://raw.githubusercontent.com/OmskHackers/waf/master/example/allowed-user-agents.data
 
+mkdir /etc/nginx/sites-enabled
 curl https://raw.githubusercontent.com/OmskHackers/waf/master/nginx.conf > /etc/nginx/nginx.conf
 curl https://raw.githubusercontent.com/OmskHackers/waf/master/default > /etc/nginx/sites-enabled/default
 
